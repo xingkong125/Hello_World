@@ -11,10 +11,10 @@ fi
 
 CURRENT_PATH=$(pwd)
 
-android_401=/home/android/android_401
-android_501=
-android_601=
-android_701=
+android_401=/home/android/android-4.0.1_r1
+android_501=/home/android/android-5.0.1_r1
+android_601=/home/android/android-6.0.1_r62
+android_701=/home/android/android-7.0.0_r1
 
 echo "choose build platform:"
 echo "1:harmony2.2"
@@ -34,17 +34,21 @@ case $PLATFORM in
 
 ########################################################Android4.2#####################################################################
 4)
+#拷贝HAL代码到编译环境中
 rm -rf ${android_401}/hardware/libhardware/modules/wl_gps
 cp -r wl_gps ${android_401}/hardware/libhardware/modules/wl_gps
 
+#切换到编译环境的根目录
 cd $android_401
 
 #make clean
 
 source Android_build.sh
 
+#删除之前生成的连接文件
 rm -rf ${android_401}/out/target/product/generic/system/lib/hw/${HAL_MODULE}.so
 
+echo "delete old hal successs!"
 
 #编译hal
 export SECURE_OS_BUILD=y
@@ -85,7 +89,7 @@ fi
 echo "delete old hal successs!"
 
 #编译hal
-exportSECURE_OS_BUILLD=y
+export SECURE_OS_BUILLD=y
 source build/envsetup.sh
 
 if [ "$1" == "B64" ];then
@@ -128,7 +132,7 @@ fi
 echo "delete old hal successs!"
 
 #编译hal
-exportSECURE_OS_BUILLD=y
+export SECURE_OS_BUILLD=y
 source build/envsetup.sh
 
 if [ "$1" == "B64" ];then
